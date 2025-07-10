@@ -1,0 +1,100 @@
+.book-card {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cover-container {
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.book-cover {
+  max-height: 100%;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover .book-cover {
+  transform: scale(1.05);
+}
+
+.book-info {
+  padding: 15px;
+}
+
+.title {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: #333;
+  font-weight: 600;
+}
+
+.meta {
+  margin-bottom: 10px;
+}
+
+.author,
+.year {
+  margin: 3px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.read-more-btn {
+  background: rgb(119, 97, 244);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.read-more-btn:hover {
+  background: rgb(119, 97, 244);
+}
+
+/* Skeleton loader styles */
+.skeleton-loader {
+  padding: 15px;
+}
+
+.skeleton-cover {
+  height: 200px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.skeleton-line {
+  height: 16px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-50 {
+  width: 50%;
+}

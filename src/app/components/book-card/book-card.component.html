@@ -1,0 +1,39 @@
+<div class="book-card" [class.loading]="loading">
+  <!-- Skeleton loader -->
+  <div class="skeleton-loader" *ngIf="loading">
+    <div class="skeleton-cover"></div>
+    <div class="skeleton-line w-75"></div>
+    <div class="skeleton-line w-50"></div>
+  </div>
+
+  <!-- Actual book content -->
+  <ng-container *ngIf="!loading">
+    <div class="cover-container">
+      <img
+        [src]="coverUrl"
+        [alt]="'Couverture de ' + book.title"
+        class="book-cover"
+        loading="lazy"
+        (click)="viewDetails()"
+      />
+    </div>
+
+    <div class="book-info">
+      <h3 class="title">{{ book.title }}</h3>
+
+      <div class="meta">
+        <p class="author" *ngIf="book.author_name?.length">
+          {{ authors }}
+        </p>
+        <p class="year" *ngIf="book.first_publish_year">
+          {{ publishedYear }}
+        </p>
+      </div>
+
+      <!-- Bouton "view more" -->
+      <button class="read-more-btn" (click)="viewDetails()">
+        <i class="fas fa-book-open"></i> View more
+      </button>
+    </div>
+  </ng-container>
+</div>

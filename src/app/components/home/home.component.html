@@ -1,0 +1,14 @@
+<section class="search-header">
+  <h1>Explore Knowledge<br /><span>Find your next read</span></h1>
+  <app-search-box (search)="onSearch($event)"></app-search-box>
+</section>
+
+<div *ngIf="loading" class="status-container">
+  <div class="loading-message">Searching...</div>
+</div>
+
+<div *ngIf="error" class="status-container">
+  <div class="error-message">{{ error }}</div>
+</div>
+
+<app-book-list [books]="books" [loading]="loading"></app-book-list>

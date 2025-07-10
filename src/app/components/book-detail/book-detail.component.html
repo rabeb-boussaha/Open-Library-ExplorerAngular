@@ -1,0 +1,51 @@
+<div class="book-detail-container" *ngIf="book">
+  <div class="detail-header">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Back to results
+    </button>
+    <h1>{{ book.title }}</h1>
+  </div>
+
+  <div class="detail-content">
+    <div class="cover-container">
+      <img
+        [src]="getLargeCover()"
+        [alt]="'Cover of ' + book.title"
+        class="large-cover"
+      />
+    </div>
+
+    <div class="book-meta">
+      <div class="meta-item">
+        <span class="meta-label">Author(s):</span>
+        <span class="meta-value">{{ getAuthors() }}</span>
+      </div>
+
+      <div class="meta-item">
+        <span class="meta-label">Published:</span>
+        <span class="meta-value">{{ getPublishedYear() }}</span>
+      </div>
+
+      <div class="meta-item" *ngIf="getISBN()">
+        <span class="meta-label">ISBN:</span>
+        <span class="meta-value">{{ getISBN() }}</span>
+      </div>
+    </div>
+
+    <div class="description-section" *ngIf="bookDescription">
+      <h2>Description</h2>
+      <div class="book-description" [innerHTML]="bookDescription"></div>
+    </div>
+
+    <div class="loading-spinner" *ngIf="loading">
+      <i class="fas fa-spinner fa-spin"></i> Loading book details...
+    </div>
+  </div>
+</div>
+
+<div class="not-found" *ngIf="!book && !loading">
+  <h2>Book not found</h2>
+  <button class="back-btn" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> Back to results
+  </button>
+</div>
