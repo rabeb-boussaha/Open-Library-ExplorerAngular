@@ -2,25 +2,25 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
 
-## Development server
+##  Clone the Project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+ ` git clone https://github.com/rabeb-boussaha/Open-Library-ExplorerAngular.git` 
 
-## Code scaffolding
+## 🌿 Switch to the master Branch
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ `git checkout master` 
 
-## Build
+## 📦 Install Dependencies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm install` 
 
-## Running unit tests
+## 🚀 Start the Development Server
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng serve` .
 
-## Running end-to-end tests
+## 🧪 Run Unit Tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `ng test` 
 
 ## Further help
 
