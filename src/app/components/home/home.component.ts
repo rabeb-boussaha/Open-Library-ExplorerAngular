@@ -32,12 +32,11 @@ export class HomeComponent {
         this.error = result.error;
 
         if (this.books.length === 0 && !this.error) {
-          this.error =
-            "Aucun résultat trouvé. Essayez d'autres termes de recherche.";
+          this.error = 'No results found. Try different search terms.';
         }
       },
       error: (err) => {
-        this.error = 'Erreur de réseau. Veuillez vérifier votre connexion.';
+        this.error = 'Network error. Please check your connection.';
         this.loading = false;
       },
     });

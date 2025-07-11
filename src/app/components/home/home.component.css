@@ -1,4 +1,3 @@
-/* home.component.css */
 :host {
   display: block;
   min-height: 100vh;
@@ -44,7 +43,6 @@ app-book-list {
   margin: 0 auto;
 }
 
-/* Messages d'état */
 .status-container {
   text-align: center;
   max-width: 800px;
@@ -64,7 +62,6 @@ app-book-list {
   color: #d93025;
 }
 
-/* Animation de chargement minimaliste */
 .loading-dots {
   display: flex;
   justify-content: center;

@@ -25,36 +25,42 @@
 
   .pagination {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
     justify-content: center;
-    margin-top: 1.5rem;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+    flex-wrap: wrap;
   }
 
   .page-button {
-    padding: 0.4rem 0.8rem;
-    border: 1px solid #ccc;
-    background-color: white;
-    color: #333;
+    background: linear-gradient(135deg, #7761f4 0%, #5a45d9 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(90, 69, 217, 0.3);
   }
 
   .page-button:hover:not(:disabled) {
-    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #5a45d9 0%, #3f30b5 100%);
+    box-shadow: 0 6px 12px rgba(90, 69, 217, 0.5);
   }
 
   .page-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    box-shadow: none;
   }
 
   .page-button.active {
-    background-color: #5a3eff;
-    color: white;
+    background: white;
+    color: #5a45d9;
     font-weight: bold;
-    border-color: #5a3eff;
+    border: 2px solid #5a45d9;
   }
 
   .empty-state {

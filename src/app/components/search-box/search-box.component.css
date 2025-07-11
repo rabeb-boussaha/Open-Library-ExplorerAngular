@@ -174,25 +174,23 @@
     }
   }
 }
-
 @media (max-width: 576px) {
-  .search-container {
-    .search-box {
-      border-radius: 16px;
+  .search-container .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-      input {
-        padding: 14px 20px;
-        font-size: 1rem;
-      }
+  .search-container .search-box input {
+    flex: 1;
+    min-width: 0;
+  }
 
-      button {
-        padding: 0 22px;
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
+  .search-container .search-box button {
+    min-width: 40px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
