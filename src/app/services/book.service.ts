@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Book } from '../book';
 
 @Injectable({ providedIn: 'root' })
@@ -9,46 +10,36 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
-  searchBooks(
-    query: string
-  ): Observable<{ books: Book[]; loading: boolean; error: string | null }> {
-    if (!query.trim()) return of({ books: [], loading: false, error: null });
+  searchBooks(query: string): Observable<Book[]> {
+    if (!query.trim()) {
+      return of([]);
+    }
 
-    return this.http
-      .get<any>(`${this.apiUrl}?q=${encodeURIComponent(query)}`)
-      .pipe(
-        tap(() => console.log('Searching for:', query)),
-        map((response) => ({
-          books: response.docs.map((doc: any) => ({
-            key: doc.key,
-            title: doc.title,
-            author_name: doc.author_name,
-            first_publish_year: doc.first_publish_year,
-            cover_id: doc.cover_i,
-          })),
-          loading: false,
-          error: null,
-        })),
-        catchError((error) => {
-          console.error('Search error:', error);
-          return of({
-            books: [],
-            loading: false,
-            error: 'Failed to fetch books. Please try again later.',
-          });
-        })
-      );
+    const url = `${this.apiUrl}?q=${encodeURIComponent(query)}`;
+    return this.http.get<any>(url).pipe(
+      map((res) =>
+        res.docs.map((doc: any) => ({
+          key: doc.key,
+          title: doc.title,
+          author_name: doc.author_name,
+          first_publish_year: doc.first_publish_year,
+          cover_id: doc.cover_i,
+        }))
+      ),
+      catchError((err) => {
+        console.error('Error while searching for books :', err);
+        return of([]);
+      })
+    );
   }
 
   getBookDetails(bookId: string): Observable<any> {
-    const url = `https://openlibrary.org/works/${bookId}.json`;
-    return this.http.get(url);
+    return this.http.get(`https://openlibrary.org/works/${bookId}.json`);
   }
 
-  getAuthorName(authorKey: string): Observable<any> {
+  getAuthorDetails(authorKey: string): Observable<any> {
     return this.http.get(`https://openlibrary.org${authorKey}.json`);
   }
 
   selectedBook: Book | null = null;
 }
-export { Book };

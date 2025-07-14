@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BookService, Book } from '../../services/book.service';
+import { BookService } from '../../services/book.service';
+import { Book } from 'src/app/book';
 
 @Component({
   selector: 'app-home',
@@ -26,18 +27,17 @@ export class HomeComponent {
     this.error = null;
 
     this.bookService.searchBooks(query).subscribe({
-      next: (result) => {
-        this.books = result.books;
-        this.loading = result.loading;
-        this.error = result.error;
+      next: (books) => {
+        this.books = books;
+        this.loading = false;
 
-        if (this.books.length === 0 && !this.error) {
+        if (books.length === 0) {
           this.error = 'No results found. Try different search terms.';
         }
       },
-      error: (err) => {
-        this.error = 'Network error. Please check your connection.';
+      error: () => {
         this.loading = false;
+        this.error = 'An error occurred while searching for books.';
       },
     });
   }

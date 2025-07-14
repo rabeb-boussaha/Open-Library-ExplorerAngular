@@ -1,5 +1,4 @@
 <div class="book-list">
-  <!-- Loading state -->
   <ng-container *ngIf="loading">
     <div class="loading-grid">
       <app-book-card
@@ -9,7 +8,6 @@
     </div>
   </ng-container>
 
-  <!-- Results -->
   <ng-container *ngIf="!loading && books.length > 0">
     <div class="results-meta">
       <p class="results-count">{{ books.length }} result(s) found</p>
@@ -22,9 +20,7 @@
       ></app-book-card>
     </div>
 
-    <!-- Pagination -->
     <div class="pagination" *ngIf="totalPages > 1">
-      <!-- Previous button -->
       <button
         (click)="previousPage()"
         [disabled]="currentPage === 1"
@@ -33,7 +29,6 @@
         « Previous
       </button>
 
-      <!-- Page numbers -->
       <button
         *ngFor="let page of [].constructor(totalPages); let i = index"
         (click)="setPage(i + 1)"
@@ -43,7 +38,6 @@
         {{ i + 1 }}
       </button>
 
-      <!-- Next button -->
       <button
         (click)="nextPage()"
         [disabled]="currentPage === totalPages"

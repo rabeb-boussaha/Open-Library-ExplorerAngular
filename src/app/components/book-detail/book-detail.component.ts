@@ -14,6 +14,7 @@ export class BookDetailComponent implements OnInit {
   book: any = null;
   bookDescription: string = '';
   loading: boolean = true;
+  error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,56 +27,42 @@ export class BookDetailComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           this.bookId = params.get('id') || '';
-          this.loading = true;
           return this.bookService.getBookDetails(this.bookId);
         }),
-        catchError((error) => {
-          console.error('Error loading book details', error);
+        catchError((err) => {
+          console.error('Failed to load book details:', err);
+          this.error = 'Unable to load book details.';
           this.loading = false;
           return of(null);
         })
       )
-      .subscribe({
-        next: (details) => {
-          this.book = details;
+      .subscribe((book) => {
+        if (book) {
+          this.book = book;
+          this.setDescription();
           this.loadAuthorName();
-          this.loadBookDescription();
-          this.loading = false;
-        },
+        }
+        this.loading = false;
       });
   }
 
-  loadBookDescription(): void {
-    if (this.book?.description) {
-      if (typeof this.book.description === 'string') {
-        this.bookDescription = this.book.description;
-      } else if (this.book.description.value) {
-        this.bookDescription = this.book.description.value;
-      }
+  setDescription(): void {
+    const desc = this.book?.description;
+    if (!desc) {
+      this.bookDescription = 'No description available.';
+    } else if (typeof desc === 'string') {
+      this.bookDescription = desc;
     } else {
-      this.bookDescription = 'This book does not have a description yet.';
+      this.bookDescription = desc.value || 'No description available.';
     }
   }
 
-  getLargeCover(): string {
-    if (this.book?.covers?.length) {
-      return `https://covers.openlibrary.org/b/id/${this.book.covers[0]}-L.jpg`;
-    }
-    return 'assets/default-book-cover-large.jpg';
-  }
-
-  getAuthors(): string {
-    return Array.isArray(this.book?.author_name) &&
-      this.book.author_name.length > 0
-      ? this.book.author_name.join(', ')
-      : 'Unknown author';
-  }
   loadAuthorName(): void {
-    const authorRef = this.book?.authors?.[0]?.author?.key;
-    if (authorRef) {
-      this.bookService.getAuthorName(authorRef).subscribe({
-        next: (data) => {
-          this.book.author_name = [data.name];
+    const authorKey = this.book?.authors?.[0]?.author?.key;
+    if (authorKey) {
+      this.bookService.getAuthorDetails(authorKey).subscribe({
+        next: (author) => {
+          this.book.author_name = [author.name];
         },
         error: () => {
           this.book.author_name = ['Unknown author'];
@@ -86,15 +73,23 @@ export class BookDetailComponent implements OnInit {
     }
   }
 
-  getPublishedYear(): string {
-    return this.book?.first_publish_date || 'Unknown date';
+  getCoverUrl(): string {
+    const coverId = this.book?.covers?.[0];
+    return coverId
+      ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`
+      : 'assets/default-book-cover-large.jpg';
   }
 
-  getISBN(): string | null {
-    if (this.book?.isbn?.length) {
-      return this.book.isbn[0];
-    }
-    return null;
+  getAuthors(): string {
+    return this.book?.author_name?.join(', ') || 'Unknown author';
+  }
+
+  getPublishedYear(): string {
+    return this.book?.first_publish_date || 'Unknown year';
+  }
+
+  getISBN(): string {
+    return this.book?.isbn?.[0] || 'Not available';
   }
 
   goBack(): void {

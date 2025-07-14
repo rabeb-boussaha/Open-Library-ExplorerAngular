@@ -1,12 +1,4 @@
 <div class="book-card" [class.loading]="loading">
-  <!-- Skeleton loader -->
-  <div class="skeleton-loader" *ngIf="loading">
-    <div class="skeleton-cover"></div>
-    <div class="skeleton-line w-75"></div>
-    <div class="skeleton-line w-50"></div>
-  </div>
-
-  <!-- Actual book content -->
   <ng-container *ngIf="!loading">
     <div class="cover-container">
       <img
@@ -30,7 +22,6 @@
         </p>
       </div>
 
-      <!-- Bouton "view more" -->
       <button class="read-more-btn" (click)="viewDetails()">
         <i class="fas fa-book-open"></i> View more
       </button>

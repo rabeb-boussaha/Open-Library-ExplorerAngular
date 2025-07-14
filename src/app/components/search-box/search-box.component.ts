@@ -15,18 +15,18 @@ export class SearchBoxComponent implements OnDestroy {
   constructor() {
     this.subscription = this.searchControl.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
-      .subscribe((query) => this.search.emit(this.sanitizeQuery(query)));
+      .subscribe((query) => this.search.emit(this.cleanQuery(query)));
   }
 
-  onSearch() {
-    this.search.emit(this.sanitizeQuery(this.searchControl.value));
+  onSearch(): void {
+    this.search.emit(this.cleanQuery(this.searchControl.value));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  private sanitizeQuery(query: string | null): string {
+  private cleanQuery(query: string | null): string {
     return query?.trim() || '';
   }
 }
