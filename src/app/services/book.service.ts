@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Book } from '../book';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
-  private apiUrl = 'https://openlibrary.org/search.json';
+  private apiUrl = environment.apiUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -34,11 +36,11 @@ export class BookService {
   }
 
   getBookDetails(bookId: string): Observable<any> {
-    return this.http.get(`https://openlibrary.org/works/${bookId}.json`);
+    return this.http.get(`${this.baseUrl}/works/${bookId}.json`);
   }
 
   getAuthorDetails(authorKey: string): Observable<any> {
-    return this.http.get(`https://openlibrary.org${authorKey}.json`);
+    return this.http.get(`${this.baseUrl}${authorKey}.json`);
   }
 
   selectedBook: Book | null = null;
